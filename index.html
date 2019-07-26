@@ -1,16 +1,50 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
+      <meta charset="UTF-8">
+      <title>Hello World!</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
-
-    <!-- You can also require other files to run in this process -->
+    <div class="container">
+      <h1>DB Connections</h1>
+       We are using Node.js <span id="node-version"></span>,
+        Chromium <span id="chrome-version"></span>,
+        and Electron <span id="electron-version"></span>.
+      <hr>
+      <br>
+      <input type="button" value="Connect To DB" id="btn" class="btn btn-info"/>
+      <!-- You can also require other files to run in this process -->
+    </div>
     <script src="./renderer.js"></script>
+    <script>
+      var button = document.getElementById("btn");
+      button.addEventListener("click", () => {
+        var mysql = require('mysql');
+
+        var connection = mysql.createConnection({
+          host:"localhost",
+          user: "root",
+          password: "",
+          database: "electrondb"
+        });
+
+        connection.connect((err) => {
+          if(err){
+            return console.log(err.stack);
+          }
+
+          console.log('connection successful')
+        });
+
+        ///here queries will be executed
+
+        connection.end(() => {
+          console.log('Connection successfully closed');
+        });
+
+
+      }, false);
+    </script>
   </body>
 </html>
