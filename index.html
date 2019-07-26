@@ -39,6 +39,16 @@
 
         ///here queries will be executed
 
+        $queryString = 'SELECT * FROM contacts';
+
+        connection.query($queryString, (err, rows, fields) => {
+          if(err){
+            console.log('An error occured with the query', err);
+          }
+
+          console.log(rows)
+        });
+
         connection.end(() => {
           console.log('Connection successfully closed');
         });
